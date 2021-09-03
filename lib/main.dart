@@ -67,6 +67,23 @@ class _HomeScreenState extends State<HomeScreen> {
           print("State change to ${state.toString()}");
           if (state is InAppPurchaseProcessSuccess) {
             print("Add ${inAppPurchaseProducts[state.purchasedProductId]} coins to user wallet");
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: Text("Coin Purchased Successfully"),
+                    ));
+          } else if (state is InAppPurchaseFailure) {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: Text(state.errorMessage),
+                    ));
+          } else if (state is InAppPurchaseProcessFailure) {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: Text(state.errorMessage),
+                    ));
           }
         },
         builder: (context, state) {
